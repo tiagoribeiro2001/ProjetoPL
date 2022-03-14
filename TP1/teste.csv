@@ -1,1 +1,4 @@
-_id,index,dataEMD,nome/primeiro,nome/último,idade,género,morada,modalidade,clube,email,federado,resultado{3,5}::soma, golos, rating{2,8}::media
+Numero,Nome,Curso,Notas{5},,,,,
+3162,Candido Faisca,Teatro,12,13,14,15,16
+7777,Cristiano Ronaldo,Desporto,17,12,20,11,12
+264,Marcelo Sousa,Ciencia Politica,18,19,19,20,18
