@@ -1,6 +1,6 @@
-# Projeto CG
+# Projeto PL
 
-Projeto realizado no âmbito da UC de Computação Gráfica do 3º Ano da Licenciatura em Engenharia Informática da UM.
+Projeto realizado no âmbito da UC de Processamento de Linguagens do 3º Ano da Licenciatura em Engenharia Informática da UM.
 
 ## Authors
 * [Francisco Novo](https://github.com/xiconovo)
