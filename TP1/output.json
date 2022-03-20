@@ -1,0 +1,44 @@
+[
+    {
+        "Número": "3162",
+        "Nome": "Cândido Faísca",
+        "Curso": "Teatro",
+        "Notas": [
+            12,
+            13,
+            14,
+            12,
+            3
+        ],
+        "Notas_media": 10.8,
+        "Idade": "18"
+    },
+    {
+        "Número": "7777",
+        "Nome": "Cristiano Ronaldo",
+        "Curso": "Desporto",
+        "Notas": [
+            17,
+            12,
+            20,
+            11,
+            12
+        ],
+        "Notas_media": 14.4,
+        "Idade": "22"
+    },
+    {
+        "Número": "264",
+        "Nome": "Marcelo Sousa",
+        "Curso": "Ciência Política",
+        "Notas": [
+            18,
+            19,
+            19,
+            20,
+            17
+        ],
+        "Notas_media": 18.6,
+        "Idade": "30"
+    }
+]

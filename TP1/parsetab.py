@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMA DCOLON ID INT LBRACE RBRACE\n    language : expression\n                | interval\n                | size\n                | function\n                | empty\n    \n    expression : ID COMA\n    \n    interval : LBRACE INT COMA INT RBRACE\n    \n    size : LBRACE INT RBRACE\n    \n    function : DCOLON ID\n    \n    empty :\n    '
+_lr_signature = 'COMMA DCOLON ID INT LBRACE RBRACE\n    language : expression\n                | interval\n                | size\n                | function\n                | empty\n    \n    expression : ID\n    \n    interval : LBRACE INT COMMA INT RBRACE\n    \n    size : LBRACE INT RBRACE\n    \n    function : DCOLON ID\n    \n    empty :\n    '
     
-_lr_action_items = {'ID':([0,9,],[7,12,]),'LBRACE':([0,],[8,]),'DCOLON':([0,],[9,]),'$end':([0,1,2,3,4,5,6,10,12,14,16,],[-10,0,-1,-2,-3,-4,-5,-6,-9,-8,-7,]),'COMA':([7,11,],[10,13,]),'INT':([8,13,],[11,15,]),'RBRACE':([11,15,],[14,16,]),}
+_lr_action_items = {'ID':([0,9,],[7,11,]),'LBRACE':([0,],[8,]),'DCOLON':([0,],[9,]),'$end':([0,1,2,3,4,5,6,7,11,13,15,],[-10,0,-1,-2,-3,-4,-5,-6,-9,-8,-7,]),'INT':([8,12,],[10,14,]),'COMMA':([10,],[12,]),'RBRACE':([10,14,],[13,15,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -27,14 +27,14 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> language","S'",1,None,None,None),
-  ('language -> expression','language',1,'p_language','converter.py',43),
-  ('language -> interval','language',1,'p_language','converter.py',44),
-  ('language -> size','language',1,'p_language','converter.py',45),
-  ('language -> function','language',1,'p_language','converter.py',46),
-  ('language -> empty','language',1,'p_language','converter.py',47),
-  ('expression -> ID COMA','expression',2,'p_expression','converter.py',53),
-  ('interval -> LBRACE INT COMA INT RBRACE','interval',5,'p_interval','converter.py',59),
-  ('size -> LBRACE INT RBRACE','size',3,'p_size','converter.py',65),
-  ('function -> DCOLON ID','function',2,'p_function','converter.py',71),
-  ('empty -> <empty>','empty',0,'p_empty','converter.py',77),
+  ('language -> expression','language',1,'p_language','converter.py',42),
+  ('language -> interval','language',1,'p_language','converter.py',43),
+  ('language -> size','language',1,'p_language','converter.py',44),
+  ('language -> function','language',1,'p_language','converter.py',45),
+  ('language -> empty','language',1,'p_language','converter.py',46),
+  ('expression -> ID','expression',1,'p_expression','converter.py',52),
+  ('interval -> LBRACE INT COMMA INT RBRACE','interval',5,'p_interval','converter.py',59),
+  ('size -> LBRACE INT RBRACE','size',3,'p_size','converter.py',66),
+  ('function -> DCOLON ID','function',2,'p_function','converter.py',73),
+  ('empty -> <empty>','empty',0,'p_empty','converter.py',80),
 ]
