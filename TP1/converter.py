@@ -1,10 +1,6 @@
-from encodings import utf_8
 from genericpath import exists
-from tokenize import Number
-from unicodedata import name
 import ply.lex as lex
 import sys
-import json
 import re
 
 header = []
