@@ -43,28 +43,28 @@ def t_LISTIFUNC(t):
     r'([^,]+)\{\d+\,(\d+)\}\:\:([^,]+)'
     regex = r'([^,]+)\{\d+\,(\d+)\}\:\:([^,]+)'
     result = re.compile(regex).search(t.value)
-    obj = ListIntervalFunction(result.group(1), result.group(2), result.group(3))
+    obj = ListIntervalFunction(result.group(1), int(result.group(2)), result.group(3))
     header.append(obj)
 
 def t_LISTFFUNC(t):
     r'([^,]+)\{(\d+)\}\:\:([^,]+)'
     regex = r'([^,]+)\{(\d+)\}\:\:([^,]+)'
     result = re.compile(regex).search(t.value)
-    obj = ListFixedFunction(result.group(1), result.group(2), result.group(3))
+    obj = ListFixedFunction(result.group(1), int(result.group(2)), result.group(3))
     header.append(obj)
 
 def t_LISTI(t):
     r'([^,]+)\{\d+\,(\d+)\}'
     regex = r'([^,]+)\{\d+\,(\d+)\}'
     result = re.compile(regex).search(t.value)
-    obj = ListInterval(result.group(1), result.group(2))
+    obj = ListInterval(result.group(1), int(result.group(2)))
     header.append(obj)
 
 def t_LISTF(t):
     r'([^,]+)\{(\d+)\}'
     regex = r'([^,]+)\{(\d+)\}'
     result = re.compile(regex).search(t.value)
-    obj = ListFixed(result.group(1), result.group(2))
+    obj = ListFixed(result.group(1), int(result.group(2)))
     header.append(obj)
 
 def t_ID(t):
@@ -91,12 +91,14 @@ def lineParser(lineList):
         if type(column) == Identifier:
             dic[column.name] = lineList[i]
             i = i + 1
+
         elif type(column) == ListFixed:
             temp = []
             for j in range(column.size):
                 temp.append(int(lineList[i]))
                 i = i + 1
             dic[column.name] = temp
+
         elif type(column) == ListInterval:
             temp = []
             for j in range(column.size):
@@ -104,6 +106,7 @@ def lineParser(lineList):
                     temp.append(int(lineList[i]))
                 i = i + 1
             dic[column.name] = temp
+
         elif type(column) == ListIntervalFunction:
             temp = []
             soma = 0
@@ -112,12 +115,13 @@ def lineParser(lineList):
                     temp.append(int(lineList[i]))
                     soma = soma + temp[-1]
                 i = i + 1
-            dic[column.name] = temp
+            # dic[column.name] = temp
             nameKey = column.name + '_' + column.function
             if column.function == 'sum':
                 dic[nameKey] = soma
             elif column.function == 'media':
                 dic[nameKey] = soma / len(temp)
+
         elif type(column) == ListFixedFunction:
             temp = []
             soma = 0
@@ -125,12 +129,13 @@ def lineParser(lineList):
                 temp.append(int(lineList[i]))
                 soma = soma + temp[-1]
                 i = i + 1
-            dic[column.name] = temp
+            # dic[column.name] = temp
             nameKey = column.name + '_' + column.function
             if column.function == 'sum':
                 dic[nameKey] = soma
             elif column.function == 'media':
-                dic[nameKey] = soma / len(temp)            
+                dic[nameKey] = soma / len(temp)   
+
     dicLines.append(dic)
 
 def readCSV():
@@ -161,16 +166,17 @@ def writeJSON():
     for entry in dicLines:
         infoString = "\t{\n"
         for info in entry:
+            infoString += "\t\t\"" + info + "\": "
             if isinstance(entry[info], list):
                 listString = '['
                 for element in entry[info]:
                     listString += str(element) + ','
                 listString = listString[:-1] + ']'
-                infoString += "\t\t\"" + info + "\": " + listString + ",\n"
+                infoString += listString + ",\n"
             elif isinstance(entry[info], (int, float)):
-                infoString += "\t\t\"" + info + "\": " + str(entry[info]) + ",\n"
+                infoString += str(entry[info]) + ",\n"
             else:
-                infoString += "\t\t\"" + info + "\": \"" + str(entry[info]) + "\",\n"
+                infoString += "\"" + str(entry[info]) + "\",\n"
         infoString = infoString[:-2] + "\n"
         infoString += ("\t},\n")
         strFile += infoString
