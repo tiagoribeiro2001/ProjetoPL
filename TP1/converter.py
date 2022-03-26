@@ -3,9 +3,13 @@ import ply.lex as lex
 import sys
 import re
 
+# Lista que irá guardar informação sobre o cabeçalho
 header = []
+
+# Lista de dicionários que contêm informação sobre todas as linhas
 dicLines = []
 
+# Classes para guardar informação sobre o cabeçalho
 class ListIntervalFunction:
     def __init__(self, name, size, function):
         self.name = name
@@ -31,6 +35,8 @@ class ListFixed:
 class Identifier:
     def __init__(self, name):
         self.name = name
+
+# Analisador léxico
 
 tokens = ["ID", "LISTF", "LISTI", "LISTFFUNC", "LISTIFUNC"]
 # ID -> Identificadores
@@ -74,16 +80,16 @@ def t_ID(t):
     obj = Identifier(result.group(1))
     header.append(obj)
 
-# carateres a ignorar
+# Carateres a ignorar
 t_ignore = '\n\t, '
 
 def t_error(t):
     print(f"ERROR: Illegal character '{t.value[0]}' at position ({t.lineno}, {t.lexpos})")
     t.lexer.skip(1)
 
-# analisador léxico
 lexer = lex.lex()
 
+# Função que irá passar uma linha para um dicionário
 def lineParser(lineList):
     i = 0
     dic = {}
@@ -138,6 +144,7 @@ def lineParser(lineList):
 
     dicLines.append(dic)
 
+# Função que irá ler o ficheiro CSV
 def readCSV():
     fileName = sys.argv[1]
     if exists(fileName):
@@ -157,8 +164,9 @@ def readCSV():
             lineParser(lineList)
         file.close()   
     else:
-        print("Couldn't read CSV file.")
+        sys.exit("ERROR: Couldn't read CSV file.")
 
+# Função que irá escrever o ficheiro JSON
 def writeJSON():
     fileName = sys.argv[2]
     file = open(fileName, 'w', encoding='utf_8')
@@ -184,5 +192,8 @@ def writeJSON():
     file.write(strFile)
     file.close()
 
-readCSV()
-writeJSON()     
+if (len(sys.argv) == 3):
+    readCSV()
+    writeJSON()
+else:
+    sys.exit("ERROR: Incorrect ammount of arguments")     
